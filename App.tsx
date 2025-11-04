@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Header } from './components/Header';
 import { ImageUploader } from './components/ImageUploader';
@@ -93,7 +92,7 @@ const App: React.FC = () => {
         </div>
       </main>
       <footer className="text-center p-4 text-gray-500 text-sm">
-        <p>Powered by Kamara Cooper Tech Solution Group.</p>
+        <p>Powered by Cooper Easy Learning.</p>
       </footer>
     </div>
   );

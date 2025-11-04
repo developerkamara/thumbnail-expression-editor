@@ -1,5 +1,5 @@
 {
-  "name": "Cooper Kamara Thumbnail Expression Editor",
+  "name": "Cooper Easy Learning - AI Thumbnail Expression Editor",
   "description": "An application that allows users to upload a thumbnail image and use AI to change the expression of the person in the image based on a text prompt.",
   "requestFramePermissions": []
 }
