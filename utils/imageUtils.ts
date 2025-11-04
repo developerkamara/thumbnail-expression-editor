@@ -1,0 +1,32 @@
+
+interface GenerativePart {
+  inlineData: {
+    data: string;
+    mimeType: string;
+  };
+}
+
+export const fileToGenerativePart = (file: File): Promise<GenerativePart> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result !== 'string') {
+        return reject(new Error('File reader did not return a string.'));
+      }
+      // The result is a data URL, e.g., "data:image/jpeg;base64,..."
+      // We need to extract the base64 part.
+      const base64String = reader.result.split(',')[1];
+      if (!base64String) {
+        return reject(new Error('Could not extract base64 string from file.'));
+      }
+      resolve({
+        inlineData: {
+          data: base64String,
+          mimeType: file.type,
+        },
+      });
+    };
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+};
