@@ -85,6 +85,7 @@ const App: React.FC = () => {
              <h2 className="text-2xl font-bold text-indigo-400 mb-6">3. See the Result</h2>
              <ResultDisplay 
                 isLoading={isLoading} 
+                originalImageUrl={originalImage?.previewUrl}
                 generatedImageUrl={generatedImage} 
                 error={error} 
               />

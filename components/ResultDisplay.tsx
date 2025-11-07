@@ -2,6 +2,7 @@ import React from 'react';
 
 interface ResultDisplayProps {
   isLoading: boolean;
+  originalImageUrl: string | null | undefined;
   generatedImageUrl: string | null;
   error: string | null;
 }
@@ -27,7 +28,7 @@ const Placeholder: React.FC = () => (
     </div>
 );
 
-export const ResultDisplay: React.FC<ResultDisplayProps> = ({ isLoading, generatedImageUrl, error }) => {
+export const ResultDisplay: React.FC<ResultDisplayProps> = ({ isLoading, originalImageUrl, generatedImageUrl, error }) => {
   return (
     <div className="w-full h-full min-h-[30rem] lg:min-h-0 flex items-center justify-center bg-gray-900/50 rounded-lg p-4 border border-gray-700">
       {isLoading && <LoadingSpinner />}
@@ -37,18 +38,27 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ isLoading, generat
           <p className="text-sm">{error}</p>
         </div>
       )}
-      {!isLoading && !error && generatedImageUrl && (
-        <div className="flex flex-col items-center gap-4 w-full">
-          <img src={generatedImageUrl} alt="Generated result" className="max-w-full max-h-[28rem] object-contain rounded-lg shadow-2xl" />
+      {!isLoading && !error && generatedImageUrl && originalImageUrl && (
+        <div className="w-full flex flex-col items-center gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="text-lg font-semibold text-gray-400">Original</h3>
+              <img src={originalImageUrl} alt="Original thumbnail" className="w-full object-contain rounded-lg shadow-lg max-h-96" />
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="text-lg font-semibold text-gray-400">Generated</h3>
+              <img src={generatedImageUrl} alt="Generated result" className="w-full object-contain rounded-lg shadow-lg max-h-96" />
+            </div>
+          </div>
           <a
             href={generatedImageUrl}
             download="edited-thumbnail.png"
-            className="mt-4 inline-flex items-center gap-2 px-6 py-2 text-md font-semibold text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500 transition-all"
+            className="mt-2 inline-flex items-center gap-2 px-6 py-2 text-md font-semibold text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500 transition-all"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
-            Download Image
+            Download Generated Image
           </a>
         </div>
       )}
